@@ -1,0 +1,29 @@
+generated: '2026-07-20'
+method: searched
+source: probe of /.well-known/ across Outpost hosts
+notes: >-
+  No .well-known discovery documents, llms.txt, or OpenAPI files were served by
+  any Outpost host. outpostnow.com redirects /.well-known/* to outpost.ai, which
+  returns 404. Recorded as honest negatives; no WellKnown pointer is wired.
+hosts:
+- host: https://outpostnow.com
+  documents:
+  - {path: /.well-known/security.txt, status: 301, file: null, redirect: https://outpost.ai/.well-known/security.txt}
+  - {path: /.well-known/openid-configuration, status: 301, file: null}
+  - {path: /.well-known/oauth-authorization-server, status: 301, file: null}
+  - {path: /.well-known/api-catalog, status: 301, file: null}
+  - {path: /.well-known/ai-plugin.json, status: 301, file: null}
+  - {path: /llms.txt, status: 301, file: null}
+- host: https://api.outpostanywhere.com
+  documents:
+  - {path: /.well-known/security.txt, status: 403, file: null}
+  - {path: /.well-known/openid-configuration, status: 403, file: null}
+  - {path: /openapi.json, status: 403, file: null}
+- host: https://access.outpostanywhere.com
+  documents:
+  - {path: /.well-known/openid-configuration, status: 404, file: null}
+  - {path: /.well-known/oauth-authorization-server, status: 404, file: null}
+- host: https://outpost.ai
+  documents:
+  - {path: /.well-known/security.txt, status: 404, file: null}
+  - {path: /llms.txt, status: 404, file: null}

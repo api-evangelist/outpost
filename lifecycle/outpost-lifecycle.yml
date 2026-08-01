@@ -1,0 +1,25 @@
+generated: '2026-07-20'
+method: searched
+source: https://outpostnow.com/docs/api/hosted-onboarding/
+versioning:
+  scheme: unversioned-path
+  notes: >-
+    Documented endpoints use stable, unversioned paths (e.g. /api/tax/calculations,
+    /api/proforma-invoices, /partner/api/onboarding/initiate). No public API
+    version identifier or dated version train was documented.
+environments:
+- name: production
+  tax_and_mor_base: https://api.outpostanywhere.com
+  auth_base: https://access.outpostanywhere.com
+  partner_base: https://partner.outpostanywhere.com
+- name: staging
+  partner_base: https://partner.outpostnow.tech
+deprecation:
+  policy_url: null
+  sunset_header: null
+  notes: No published deprecation or Sunset/Deprecation-header policy was found.
+status_page: null
+sla:
+  url: null
+  notes: No public SLA / uptime commitment was found.
+deprecated_operations: []

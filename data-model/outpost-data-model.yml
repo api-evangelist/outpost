@@ -1,0 +1,81 @@
+generated: '2026-07-20'
+method: searched
+source: https://outpostnow.com/docs/api/tax-of-record/
+notes: >-
+  Entity graph derived from the documented request/response payloads of the Tax
+  of Record, Merchant of Record, and Hosted Onboarding APIs. Outpost does not
+  publish an OpenAPI document; fields below are taken verbatim from the docs.
+entities:
+- name: TaxCalculation
+  api: Tax of Record
+  operation: POST /api/tax/calculations
+  key_fields: [currency, taxBehavior, customer, lineItems, evidence]
+- name: TaxTransaction
+  api: Tax of Record
+  key_fields: [merchantTransactionReference]
+  notes: Created from a prior tax calculation after successful payment.
+- name: Refund
+  api: Tax of Record
+  notes: Refund transaction against a tax transaction.
+- name: Customer
+  key_fields: [merchantCustomerReference, firstName, lastName, email, taxIdentifiers, billingAddress, shippingAddress]
+- name: TaxIdentifier
+  key_fields: [type, code, buyerTaxRegime]
+  enums:
+    type: [BR_CPF, BR_CNPJ, EU_VAT, GB_VAT, US_EIN]
+    buyerTaxRegime: [SIMPLES_NACIONAL, LUCRO_PRESUMIDO, LUCRO_REAL]
+- name: LineItem
+  key_fields: [merchantLineItemReference, productCode, description, unitPrice, quantity, discountAmount]
+- name: Address
+  key_fields: [line1, line2, city, state, postalCode, country]
+- name: ProformaInvoice
+  api: Merchant of Record
+  operation: POST /api/proforma-invoices
+  key_fields: [proformaInvoiceId, status, jurisdiction, total, recipient, provider, lineItems, issueDate, dueDate, invoice]
+  status_values: [ISSUED, SETTLED]
+- name: PaymentInvoice
+  api: Merchant of Record
+  notes: Tax invoice for a payment; fetched by Outpost ID or psp_reference.
+- name: RefundInvoice
+  api: Merchant of Record
+  notes: Tax invoice for a refund; fetched by Outpost ID or psp_reference.
+- name: Webhook
+  api: Merchant of Record
+  notes: Merchant-registered webhook subscription.
+- name: OnboardingApplication
+  api: Hosted Onboarding
+  operation: POST /partner/api/onboarding/initiate
+  key_fields: [applicationId, merchantReference, productCode, mode, returnUrl, company]
+relationships:
+- from: TaxTransaction
+  to: TaxCalculation
+  kind: belongs_to
+  via: calculation
+- from: Refund
+  to: TaxTransaction
+  kind: belongs_to
+  via: transaction
+- from: PaymentInvoice
+  to: TaxTransaction
+  kind: belongs_to
+  via: psp_reference
+- from: RefundInvoice
+  to: Refund
+  kind: belongs_to
+  via: psp_reference
+- from: ProformaInvoice
+  to: Customer
+  kind: has_one
+  via: recipient
+- from: TaxCalculation
+  to: LineItem
+  kind: has_many
+  via: lineItems
+- from: Customer
+  to: TaxIdentifier
+  kind: has_many
+  via: taxIdentifiers
+- from: OnboardingApplication
+  to: Company
+  kind: has_one
+  via: company

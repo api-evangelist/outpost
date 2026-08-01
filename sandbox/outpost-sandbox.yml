@@ -1,0 +1,27 @@
+generated: '2026-07-20'
+method: searched
+source: https://outpostnow.com/docs/api/hosted-onboarding/
+summary: >-
+  Outpost publishes a separate staging environment for the Partner / Hosted
+  Onboarding API and documents a "Testing & Rollout" flow for the Tax of Record
+  integration. No test card numbers, magic test identifiers, or hosted test
+  tokens were published in the static docs (Outpost is a merchant-of-record /
+  tax layer that sits behind the merchant's own PSP, so payment test values come
+  from the PSP, not Outpost).
+environments:
+- name: staging
+  api: Hosted Onboarding (Partner) API
+  base_url: https://partner.outpostnow.tech
+  prefix: /partner/api
+- name: production
+  api: Hosted Onboarding (Partner) API
+  base_url: https://partner.outpostanywhere.com
+  prefix: /partner/api
+credentials:
+  notes: >-
+    Partner API client ID and secret are created and rotated in the Partner
+    Portal (up to 2 active credentials for safe rotation). Tax/MoR credentials
+    are OAuth2 client-credentials issued by Outpost.
+test_values:
+  published: false
+  notes: No provider-published test values were found; none fabricated.

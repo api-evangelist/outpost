@@ -1,0 +1,28 @@
+generated: '2026-07-20'
+method: searched
+source: https://outpostnow.com/docs/api/merchant-of-record/
+type: Webhooks
+service: Merchant of Record
+summary: >-
+  The Merchant of Record API delivers webhooks so merchants are notified when
+  events occur out-of-band — most notably when a B2B bank transfer against a
+  proforma invoice settles. Webhook endpoints are self-service: merchants
+  register, list, and delete their webhook subscriptions via the API.
+management:
+  register: POST (Register webhook)
+  list: GET (List webhooks)
+  delete: DELETE (Delete webhook)
+  docs: https://outpostnow.com/docs/api/merchant-of-record/
+events:
+- name: proforma_invoice.settled
+  description: >-
+    Sent when the bank transfer for a proforma invoice clears; the merchant uses
+    it to fulfill the order. The proforma invoice status transitions from ISSUED
+    to SETTLED.
+  resource: proforma_invoice
+  source: https://outpostnow.com/docs/api/merchant-of-record/
+notes: >-
+  Outpost does not publish an AsyncAPI document. Additional event types beyond
+  proforma_invoice.settled are documented in the interactive "Events & delivery"
+  reference but were not enumerable from the static docs and are not fabricated
+  here.

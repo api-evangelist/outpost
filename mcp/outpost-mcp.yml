@@ -1,0 +1,75 @@
+generated: '2026-07-20'
+method: derived
+status: candidate
+source: https://outpostnow.com/docs/api/
+notes: >-
+  Outpost does not publish a hosted/remote MCP server. Outpost does publish a
+  "Copy integration plan for LLM" brief for AI coding assistants, but that is a
+  scaffolding prompt, not an MCP server. The tool list below is a candidate
+  derived from the documented REST operations (Outpost publishes no OpenAPI, so
+  operations are named from the docs, and only endpoints with a confirmed path
+  carry one). Nothing here is a published Outpost tool.
+server:
+  name: outpost
+  transport: http
+  url: null
+tools:
+- name: create_tax_calculation
+  description: Create a tax calculation for a set of line items and customer info.
+  method: POST
+  path: /api/tax/calculations
+  api: Tax of Record
+- name: create_tax_transaction
+  description: Record a tax transaction after successful payment.
+  api: Tax of Record
+- name: get_tax_transaction
+  description: Retrieve a tax transaction.
+  api: Tax of Record
+- name: get_transaction_refunds
+  description: List refunds for a tax transaction.
+  api: Tax of Record
+- name: create_refund_transaction
+  description: Create a refund transaction.
+  api: Tax of Record
+- name: get_transaction_invoice
+  description: Retrieve the tax invoice for a transaction.
+  api: Tax of Record
+- name: import_catalogue_product
+  description: Import a product into the tax catalogue for classification.
+  api: Tax of Record
+- name: create_proforma_invoice
+  description: Generate a proforma invoice for a B2B customer paying by bank transfer.
+  method: POST
+  path: /api/proforma-invoices
+  api: Merchant of Record
+- name: get_payment_invoice
+  description: Retrieve a payment tax invoice by Outpost ID or PSP reference.
+  api: Merchant of Record
+- name: get_refund_invoice
+  description: Retrieve a refund tax invoice by Outpost ID or PSP reference.
+  api: Merchant of Record
+- name: register_webhook
+  description: Register a webhook subscription.
+  api: Merchant of Record
+- name: list_webhooks
+  description: List webhook subscriptions.
+  api: Merchant of Record
+- name: delete_webhook
+  description: Delete a webhook subscription.
+  api: Merchant of Record
+- name: initiate_onboarding
+  description: Create or resume a merchant onboarding application (idempotent).
+  method: POST
+  path: /partner/api/onboarding/initiate
+  api: Hosted Onboarding
+- name: get_onboarding_application
+  description: Retrieve an onboarding application by id.
+  method: GET
+  path: /partner/api/onboarding/applications/{applicationId}
+  api: Hosted Onboarding
+- name: update_onboarding_application
+  description: Update an onboarding application.
+  api: Hosted Onboarding
+- name: regenerate_onboarding_link
+  description: Regenerate the hosted onboarding link for an application.
+  api: Hosted Onboarding

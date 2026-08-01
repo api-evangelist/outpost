@@ -1,0 +1,47 @@
+generated: '2026-07-20'
+method: searched
+source: https://outpostnow.com/docs/api/tax-of-record/
+docs:
+- https://outpostnow.com/docs/api/tax-of-record/
+- https://outpostnow.com/docs/api/merchant-of-record/
+- https://outpostnow.com/docs/api/hosted-onboarding/
+summary:
+  types:
+  - oauth2
+  - http
+  oauth2_flows:
+  - clientCredentials
+  http_schemes:
+  - bearer
+  notes: >-
+    Tax of Record and Merchant of Record APIs use OAuth2 client-credentials
+    (server-to-server); the merchant's backend exchanges a client_id/client_secret
+    for a Bearer JWT access token. Hosted Onboarding (Partner) API authenticates
+    with a JWT Bearer token whose credentials are created and rotated in the
+    Partner Portal (up to 2 active credentials). Secrets are server-only and must
+    never be exposed to browsers or logs.
+schemes:
+- name: OAuth2ClientCredentials
+  type: oauth2
+  used_by:
+  - Outpost Tax of Record API
+  - Outpost Merchant of Record API
+  flow: clientCredentials
+  tokenUrl: https://access.outpostanywhere.com/oauth2/token
+  grant_type: client_credentials
+  token_type: Bearer
+  token_format: JWT
+  token_ttl_seconds: 86400
+  refresh: Cache token with expires_in - 300s buffer; refresh on expiry or on 401.
+  source: https://outpostnow.com/docs/api/tax-of-record/
+- name: PartnerBearerJWT
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  used_by:
+  - Outpost Hosted Onboarding (Partner) API
+  header: 'Authorization: Bearer <token>'
+  credential_management: >-
+    Client ID and secret created/rotated in the Partner Portal; up to 2 active
+    API credentials at a time for safe key rotation.
+  source: https://outpostnow.com/docs/api/hosted-onboarding/

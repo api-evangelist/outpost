@@ -1,0 +1,35 @@
+generated: '2026-07-20'
+method: searched
+source: https://outpostnow.com/docs/api/tax-of-record/
+standards:
+- id: oauth2-client-credentials
+  conforms: true
+  evidence: >-
+    OAuth2 client_credentials grant at https://access.outpostanywhere.com/oauth2/token
+    returning a Bearer JWT (RFC 6749 §4.4).
+- id: jwt-bearer
+  conforms: true
+  evidence: Access tokens and Partner API tokens are JWT Bearer tokens (RFC 6750 / RFC 7519).
+- id: oidc
+  conforms: false
+  evidence: OAuth2 token endpoint only; no OpenID Connect discovery or id_token documented.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use a code-string envelope (invalid_argument), not application/problem+json.
+- id: idempotency
+  conforms: true
+  evidence: >-
+    Client-supplied reference keys (merchantTransactionReference; merchantReference +
+    productCode) make write operations idempotent.
+- id: iso-3166-1
+  conforms: true
+  evidence: Jurisdiction and country fields use ISO 3166-1 alpha-2 codes.
+- id: iso-4217
+  conforms: true
+  evidence: Currency fields use ISO 4217 codes.
+- id: iso-8601
+  conforms: true
+  evidence: Dates and timestamps use ISO 8601.
+- id: webhooks
+  conforms: true
+  evidence: Merchant of Record API delivers proforma_invoice.settled webhooks with self-service subscription management.

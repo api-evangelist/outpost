@@ -1,0 +1,44 @@
+generated: '2026-07-20'
+method: searched
+source: https://outpostnow.com/docs/api/tax-of-record/
+docs:
+- https://outpostnow.com/docs/api/tax-of-record/
+- https://outpostnow.com/docs/api/merchant-of-record/
+- https://outpostnow.com/docs/api/hosted-onboarding/
+authentication:
+  style: OAuth2 client-credentials (Bearer JWT) for Tax/MoR; JWT Bearer for Partner API
+  posture: server-to-server only; frontend never calls Outpost directly
+  ref: authentication/outpost-authentication.yml
+idempotency:
+  supported: true
+  mechanism: >-
+    Client-supplied reference keys make write operations idempotent. The Tax of
+    Record API uses merchantTransactionReference to prevent double confirm/cancel
+    calls; the Hosted Onboarding initiate endpoint is explicitly idempotent —
+    calling POST /partner/api/onboarding/initiate again with the same
+    merchantReference and productCode returns the existing application.
+  keys:
+  - merchantTransactionReference
+  - merchantReference + productCode
+  source: https://outpostnow.com/docs/api/hosted-onboarding/
+token_management:
+  cache: Cache access_token server-side with TTL of expires_in - 300s buffer
+  on_401: Refresh token and retry once
+timeouts_retries:
+  request_timeout_seconds: 5
+  retry: Retry transient errors (network / 5xx) with bounded backoff
+tracing:
+  psp_reference: >-
+    Invoices and refunds are reconciled by Outpost UUID or by psp_reference
+    (Adyen pspReference, Stripe charge ID).
+identifiers:
+  ids: UUID (e.g. proformaInvoiceId, paymentId, refundId, applicationId)
+  jurisdiction: ISO 3166-1 alpha-2 country codes
+  currency: ISO 4217 currency codes
+  dates: ISO 8601
+error_envelope:
+  style: HTTP status + machine-readable code string (e.g. 400 invalid_argument)
+  ref: errors/outpost-problem-types.yml
+security_principles:
+- Server-only secrets — client secret must never be exposed to browsers or logs
+- Store transactions only after PSP authorization/capture succeeds

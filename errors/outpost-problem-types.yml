@@ -1,0 +1,31 @@
+generated: '2026-07-20'
+method: searched
+source: https://outpostnow.com/docs/api/merchant-of-record/
+format: code-string
+notes: >-
+  Outpost returns standard HTTP status codes with a machine-readable code string
+  (e.g. invalid_argument) rather than RFC 9457 application/problem+json. The
+  catalog below is captured from the documented error responses across the Tax
+  of Record, Merchant of Record, and Hosted Onboarding API references; it is not
+  exhaustive of every product-specific validation error.
+problems:
+- status: 400
+  code: invalid_argument
+  title: Invalid or missing argument
+  detail: >-
+    A required field is missing or invalid (e.g. jurisdiction, recipient, or line
+    items on proforma invoice creation; malformed tax identifier on a tax
+    calculation). Unknown tax-identifier types are rejected.
+  remediation: Correct the request payload and retry.
+  source_docs:
+  - https://outpostnow.com/docs/api/merchant-of-record/
+  - https://outpostnow.com/docs/api/tax-of-record/
+- status: 401
+  code: unauthenticated
+  title: Missing or expired access token
+  detail: >-
+    The Bearer access token is missing, invalid, or expired. Clients should
+    refresh the token via the client-credentials flow and retry once.
+  remediation: Refresh the OAuth2 access token and retry the request.
+  source_docs:
+  - https://outpostnow.com/docs/api/tax-of-record/

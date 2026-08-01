@@ -1,0 +1,26 @@
+# Outpost
+
+> Outpost is a Merchant of Record and Tax of Record platform for cross-border commerce. Retailers keep their own checkout and payment service providers (Stripe, Adyen) while Outpost takes on the legal and tax liability — local payments, VAT/GST/sales-tax registration, calculation and filing, proforma invoicing for B2B bank transfers, and hosted merchant onboarding. Founded by ex-Revolut operator Will Mahon-Heap; backed by Ribbit Capital and Better Tomorrow Ventures.
+
+Integration is server-to-server: your frontend never calls Outpost directly. Tax of Record and Merchant of Record APIs use OAuth2 client-credentials (Bearer JWT via https://access.outpostanywhere.com/oauth2/token); the Hosted Onboarding (Partner) API uses a JWT Bearer token from the Partner Portal. Write operations are idempotent via client-supplied reference keys.
+
+## APIs
+
+- [Tax of Record API](https://outpostnow.com/docs/api/tax-of-record/): Automates tax registration, calculation, and filing. Base https://api.outpostanywhere.com. Operations: create tax calculation (POST /api/tax/calculations), create/get tax transaction, get transaction refunds, create refund transaction, get transaction invoice, import catalogue product. Supports Brazil NFS-e (BR_CPF/BR_CNPJ), EU_VAT, GB_VAT, US_EIN.
+- [Merchant of Record API](https://outpostnow.com/docs/api/merchant-of-record/): Issue proforma invoices for B2B bank-transfer customers (POST /api/proforma-invoices), receive proforma_invoice.settled webhooks, and retrieve payment/refund tax invoices by Outpost ID or PSP reference. Base https://api.outpostanywhere.com.
+- [Hosted Onboarding (Partner) API](https://outpostnow.com/docs/api/hosted-onboarding/): Onboard existing merchants via a hosted UI and async review. POST /partner/api/onboarding/initiate (idempotent), GET/PATCH application, regenerate link. Base https://partner.outpostanywhere.com (staging https://partner.outpostnow.tech), prefix /partner/api.
+
+## Artifacts
+
+- [Authentication](https://raw.githubusercontent.com/api-evangelist/outpost/refs/heads/main/authentication/outpost-authentication.yml): OAuth2 client-credentials + JWT bearer profile.
+- [Conventions](https://raw.githubusercontent.com/api-evangelist/outpost/refs/heads/main/conventions/outpost-conventions.yml): idempotency, token caching, retries, identifiers.
+- [Error catalog](https://raw.githubusercontent.com/api-evangelist/outpost/refs/heads/main/errors/outpost-problem-types.yml): code-string error envelope.
+- [Webhooks](https://raw.githubusercontent.com/api-evangelist/outpost/refs/heads/main/asyncapi/outpost-merchant-of-record-webhooks.yml): Merchant of Record event surface.
+- [Data model](https://raw.githubusercontent.com/api-evangelist/outpost/refs/heads/main/data-model/outpost-data-model.yml): entities and relationships.
+
+## Docs
+
+- [Blog](https://outpostnow.com/blog/)
+- [FAQ](https://outpostnow.com/faq/)
+- [Merchant of Record Terms](https://outpostnow.com/mor-terms/)
+- [Privacy Policy](https://outpostnow.com/privacy-policy/)
