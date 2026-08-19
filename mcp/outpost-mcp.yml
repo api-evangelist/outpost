@@ -2,13 +2,11 @@ generated: '2026-07-20'
 method: derived
 status: candidate
 source: https://outpostnow.com/docs/api/
-notes: >-
-  Outpost does not publish a hosted/remote MCP server. Outpost does publish a
-  "Copy integration plan for LLM" brief for AI coding assistants, but that is a
-  scaffolding prompt, not an MCP server. The tool list below is a candidate
-  derived from the documented REST operations (Outpost publishes no OpenAPI, so
-  operations are named from the docs, and only endpoints with a confirmed path
-  carry one). Nothing here is a published Outpost tool.
+notes: Outpost does not publish a hosted/remote MCP server. Outpost does publish a "Copy integration plan
+  for LLM" brief for AI coding assistants, but that is a scaffolding prompt, not an MCP server. The tool
+  list below is a candidate derived from the documented REST operations (Outpost publishes no OpenAPI,
+  so operations are named from the docs, and only endpoints with a confirmed path carry one). Nothing
+  here is a published Outpost tool.
 server:
   name: outpost
   transport: http
@@ -73,3 +71,9 @@ tools:
 - name: regenerate_onboarding_link
   description: Regenerate the hosted onboarding link for an application.
   api: Hosted Onboarding
+deployment:
+  mode: none
+  verified: derived
+  tools: 17
+  checked: '2026-08-12'
+  source: catalog MCP census
