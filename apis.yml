@@ -75,6 +75,10 @@ apis:
   tags:
   - Merchant of Record
   - Invoicing
+  - Webhook
+  tags_raw:
+  - Merchant of Record
+  - Invoicing
   - Webhooks
   properties:
   - type: Documentation
