@@ -20,6 +20,7 @@ accessModel:
   confidence: medium
   source:
   - authentication
+  - {url: 'https://outpostnow.com', status: 301, note: 'declared website redirects to https://outpost.ai/ — a different registrable domain (outpostnow.com -> outpost.ai), possible rename or acquisition (probed 2026-09-03, roadmap#169)'}
   generated: '2026-07-22'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/outpost.png
@@ -146,8 +147,9 @@ common:
   url: data-model/outpost-data-model.yml
 - type: Conformance
   url: conformance/outpost-conformance.yml
-- type: MCPServer
+- type: X-MCPServerCandidate
   url: mcp/outpost-mcp.yml
+  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
 - type: LLMsTxt
   url: llms/outpost-llms.txt
 - type: DomainSecurity
