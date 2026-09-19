@@ -106,6 +106,9 @@ apis:
   baseURL: https://partner.outpostanywhere.com
   tags:
   - Onboarding
+  - Partners
+  tags_raw:
+  - Onboarding
   - Partner
   properties:
   - type: Documentation
